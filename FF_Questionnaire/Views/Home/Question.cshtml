@@ -1,0 +1,51 @@
+﻿<div>
+    <p>Question @ViewBag.QuestionNumber of @ViewBag.QuestionsCount</p>
+    <p>@ViewBag.Question.QuestionContent</p>
+</div>
+    <form asp-action="StoreAnswerAndGoToNext" method="post">
+        <input type="hidden" value="@ViewBag.Index" name="index" />
+        <div class="mt-2">
+            <p>Your answer:</p>
+            @{
+                string inputType = @ViewBag.Question.InputType;
+            }
+
+            @if (inputType == "text")
+            {
+                <input type="text" name="answerString" required autocomplete="off" value="@ViewBag.Answer?.AnswerText">
+            }
+            @if (inputType == "radio")
+            {   
+                for (int i = 0; i < @ViewBag.Question.PossibleAnswers.Count; i++)
+                {
+                    <div>
+                        <input type="radio" name="answerRadio" value="@i" id="@(i)_answer" required>
+                        <label for="@(i)_answer">@ViewBag.Question.PossibleAnswers[i]</label>
+                    </div>
+                }
+            }
+        </div>
+        <div class="mt-5">
+            @{
+                int previous = @ViewBag.QuestionNumber - 2;
+                int current = @ViewBag.QuestionNumber - 1;
+                //int next = @ViewBag.QuestionNumber;
+            }
+            @if (@ViewBag.QuestionNumber <= @ViewBag.QuestionsCount && @ViewBag.QuestionNumber > 1)
+            {
+                <a class="btn btn-primary" href="/Home/Question?index=@previous">&lt; Previous</a>
+            }
+
+            @if (@ViewBag.QuestionNumber == @ViewBag.QuestionsCount)
+            {
+                //<a class="btn btn-primary" href="#">Finish</a>
+                <button class="btn btn-primary" type="submit">Finish</button>
+            }
+            else
+            {
+                //<a class="btn btn-primary" href="/Home/StoreAnswerAndGoToNext?index=@current">Next &gt;</a>
+                <button class="btn btn-primary" type="submit">Next &gt;</button>
+            }
+            
+        </div>
+</form>

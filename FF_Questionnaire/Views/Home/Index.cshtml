@@ -1,0 +1,12 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="d-flex justify-content-center align-content-center h-100">
+    <div class="text-center">
+        <h1 class="display-4">@ViewBag.QuestionnaireTitle</h1>
+        <p>We have @ViewBag.QuestionsCount questions and each question should take 1-2 minutes.</p>
+        <p>Press "Start" button to participate in our questionnaire.</p>
+        <a class="btn btn-primary px-4 mt-4" href="/Home/Question?index=0">Start</a>
+    </div>
+</div>
